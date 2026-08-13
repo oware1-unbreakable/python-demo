@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out code from GitHub'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application'
+                bat 'python --version'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests'
+                bat 'pytest'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline successful!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
